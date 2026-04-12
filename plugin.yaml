@@ -1,0 +1,42 @@
+name: hello-nousviz
+display_name: Hello Nousviz
+version: 1.0.0
+description: >
+  Bare-bones test plugin for validating the Nousviz plugin install loop.
+  Exercises route hot-loading, SQL migrations, dashboard rendering, and
+  uninstall with data removal. Not a product feature — install/uninstall freely.
+
+license: MIT
+icon: plug
+category: integration
+tags: [test, example]
+visibility: public
+
+publisher:
+  slug: nousviz
+  name: Nousviz
+  website: https://nousviz.com
+  contact_email: plugins@nousviz.com
+  verified: true
+
+repository: https://github.com/nousviz/plugin-hello-nousviz
+homepage: https://github.com/nousviz/plugin-hello-nousviz
+
+requires:
+  postgres: true
+
+databases:
+  postgres:
+    tables:
+      - hello_items
+      - hello_events
+
+navigation:
+  - label: Hello Nousviz
+    href: /plugin/hello-nousviz
+    icon: plug
+    position: sidebar
+
+dashboards:
+  - name: overview
+    label: Overview

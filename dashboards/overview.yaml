@@ -1,0 +1,47 @@
+title: Overview
+refresh_seconds: 30
+
+panels:
+
+  - id: total_items
+    type: stat
+    label: Total Items
+    query: >
+      SELECT count(*) AS value FROM hello_items
+    fallback_empty: true
+
+  - id: active_items
+    type: stat
+    label: Active Items
+    query: >
+      SELECT count(*) AS value FROM hello_items WHERE status = 'active'
+    fallback_empty: true
+
+  - id: recent_items
+    type: table
+    label: Recent Items
+    query: >
+      SELECT name, status, created_at
+      FROM hello_items
+      ORDER BY created_at DESC
+      LIMIT 20
+    columns:
+      - { key: name,       label: Name }
+      - { key: status,     label: Status, type: badge,
+          values: { active: green, inactive: grey } }
+      - { key: created_at, label: Created, type: datetime }
+    fallback_empty: true
+
+  - id: recent_events
+    type: table
+    label: Recent Events
+    query: >
+      SELECT event_type, detail, created_at
+      FROM hello_events
+      ORDER BY created_at DESC
+      LIMIT 20
+    columns:
+      - { key: event_type, label: Type }
+      - { key: detail,     label: Detail }
+      - { key: created_at, label: Timestamp, type: datetime }
+    fallback_empty: true

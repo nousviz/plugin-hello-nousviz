@@ -1,0 +1,27 @@
+tabs:
+  - id: items
+    label: Items
+    table: hello_items
+    columns:
+      - { key: id,         label: ID,      type: text }
+      - { key: name,       label: Name,    type: text }
+      - { key: status,     label: Status,  type: badge,
+          values: { active: green, inactive: grey } }
+      - { key: created_at, label: Created, type: datetime }
+    default_sort: created_at DESC
+    page_size: 50
+    filters:
+      - { key: status, label: Status, type: select, options: [active, inactive] }
+      - { key: name,   label: Name,   type: text_search }
+
+  - id: events
+    label: Events
+    table: hello_events
+    columns:
+      - { key: id,         label: ID,        type: text }
+      - { key: event_type, label: Type,       type: text }
+      - { key: created_at, label: Timestamp,  type: datetime }
+    default_sort: created_at DESC
+    page_size: 100
+    filters:
+      - { key: event_type, label: Type, type: select, options: [sync, install, error] }

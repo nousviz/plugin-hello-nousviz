@@ -1,6 +1,6 @@
 name: hello-nousviz
 display_name: Hello Nousviz
-version: 1.0.0
+version: 1.1.0
 description: >
   Bare-bones test plugin for validating the Nousviz plugin install loop.
   Exercises route hot-loading, SQL migrations, dashboard rendering, and
@@ -32,11 +32,34 @@ databases:
       - hello_events
 
 navigation:
-  - label: Hello Nousviz
-    href: /plugin/hello-nousviz
+  - label: Overview
+    href: /plugin/hello-nousviz/overview
     icon: plug
     position: sidebar
+  - label: Alerts
+    href: /plugin/hello-nousviz/alerts
+    icon: plug
+    position: sidebar
+
+settings:
+  - name: sync_enabled
+    label: Enable sync
+    type: toggle
+    default: true
+    description: Run the sync script on schedule.
+  - name: item_limit
+    label: Items per sync
+    type: number
+    default: 100
+    description: Maximum number of items to insert per sync run.
+  - name: event_label
+    label: Event label
+    type: text
+    default: "sync_run"
+    description: event_type value written to hello_events on each sync.
 
 dashboards:
   - name: overview
     label: Overview
+  - name: analytics
+    label: Analytics

@@ -1,0 +1,19 @@
+name: high_inactive_ratio
+label: High Inactive Ratio
+description: >
+  Fires when more than 50% of hello_items are inactive.
+  Tests percentage-based threshold alerting.
+dataset: hello_items
+metric: inactive_pct
+aggregation: avg
+condition_type: absolute_above
+threshold: 50
+scope: all
+check_frequency: daily
+severity: info
+query: >
+  SELECT ROUND(
+    100.0 * count(*) FILTER (WHERE status = 'inactive') / NULLIF(count(*), 0),
+    1
+  ) AS value
+  FROM hello_items

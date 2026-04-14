@@ -1,15 +1,17 @@
 name: hello-nousviz
 display_name: Hello Nousviz
-version: 1.1.0
+version: 1.2.0
 description: >
-  Bare-bones test plugin for validating the Nousviz plugin install loop.
-  Exercises route hot-loading, SQL migrations, dashboard rendering, and
-  uninstall with data removal. Not a product feature — install/uninstall freely.
+  Ultimate skeleton plugin for validating every Nousviz plugin contract feature.
+  Exercises: route hot-loading, SQL migrations, dashboard rendering, settings
+  persistence, sync with real data generation, alert templates, data port,
+  datasets, insights, and clean uninstall. Not a product feature — install and
+  uninstall freely.
 
 license: MIT
 icon: plug
 category: integration
-tags: [test, example]
+tags: [test, example, skeleton]
 visibility: public
 
 publisher:
@@ -46,17 +48,35 @@ settings:
     label: Enable sync
     type: toggle
     default: true
-    description: Run the sync script on schedule.
+    description: When disabled, Sync Now exits immediately without generating data.
   - name: item_limit
     label: Items per sync
     type: number
-    default: 100
-    description: Maximum number of items to insert per sync run.
+    default: 5
+    description: Number of random test items to insert into hello_items per sync run.
   - name: event_label
     label: Event label
     type: text
     default: "sync_run"
-    description: event_type value written to hello_events on each sync.
+    description: The event_type value written to hello_events on each sync.
+
+sync:
+  script: src/sync.py
+  schedule: "0 */4 * * *"
+  incremental: false
+  timeout: 30
+
+datasets:
+  - name: hello_items
+    label: Hello Items
+    db: postgres
+    grain: event
+    description: Test items created by sync or the API. Each has a name and active/inactive status.
+  - name: hello_events
+    label: Hello Events
+    db: postgres
+    grain: event
+    description: Lifecycle events — sync runs, installs, errors. Detail stored as JSONB.
 
 dashboards:
   - name: overview

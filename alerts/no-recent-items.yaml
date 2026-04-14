@@ -1,0 +1,18 @@
+name: no_recent_items
+label: No Recent Items
+description: >
+  Fires when no hello_items have been created in the last 24 hours.
+  Useful for verifying that sync is running and generating data.
+dataset: hello_items
+metric: count
+aggregation: count
+condition_type: zero_check
+threshold: 0
+compare_to: 24h
+scope: all
+check_frequency: daily
+severity: warning
+query: >
+  SELECT count(*) AS value
+  FROM hello_items
+  WHERE created_at > now() - interval '24 hours'

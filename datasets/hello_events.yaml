@@ -1,0 +1,12 @@
+name: hello_events
+label: Hello Events
+db: postgres
+grain: event
+description: >
+  Lifecycle events from hello-nousviz. Records sync runs, installs, errors,
+  and any other plugin activity. Detail column stores structured JSONB metadata.
+columns:
+  - { name: id,         type: uuid,        description: Primary key }
+  - { name: event_type, type: text,        description: "Event category (sync_run, install, error)" }
+  - { name: detail,     type: jsonb,       description: Structured metadata — timestamps, counts, durations }
+  - { name: created_at, type: timestamptz, description: When the event occurred }

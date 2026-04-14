@@ -1,0 +1,19 @@
+name: sync_failure
+label: Sync Not Running
+description: >
+  Fires when no sync_run events have been recorded in the last 48 hours.
+  Indicates the sync script is not being triggered.
+dataset: hello_events
+metric: count
+aggregation: count
+condition_type: zero_check
+threshold: 0
+compare_to: 48h
+scope: all
+check_frequency: daily
+severity: warning
+query: >
+  SELECT count(*) AS value
+  FROM hello_events
+  WHERE event_type = 'sync_run'
+    AND created_at > now() - interval '48 hours'

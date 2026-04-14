@@ -1,0 +1,26 @@
+plugin: hello-nousviz
+db_engine: postgres
+
+cards:
+  - id: total_items
+    label: Total Items
+    query: SELECT count(*) AS value FROM hello_items
+    format: number
+
+  - id: items_today
+    label: Items Created Today
+    query: >
+      SELECT count(*) AS value FROM hello_items
+      WHERE created_at >= CURRENT_DATE
+    format: number
+
+  - id: last_sync_age
+    label: Last Sync
+    query: >
+      SELECT CASE
+        WHEN max(created_at) IS NULL THEN 'Never'
+        ELSE ROUND(EXTRACT(EPOCH FROM (now() - max(created_at))) / 3600, 1)::text || 'h ago'
+      END AS value
+      FROM hello_events
+      WHERE event_type = 'sync_run'
+    format: text

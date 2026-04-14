@@ -1,0 +1,12 @@
+name: hello_items
+label: Hello Items
+db: postgres
+grain: event
+description: >
+  Test items created by the sync script or the plugin API.
+  Each item has a unique name and an active/inactive status.
+columns:
+  - { name: id,         type: uuid,        description: Primary key }
+  - { name: name,       type: text,        description: Unique item name (e.g. "bold-falcon-042") }
+  - { name: status,     type: text,        description: "active or inactive" }
+  - { name: created_at, type: timestamptz, description: When the item was created }

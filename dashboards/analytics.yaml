@@ -37,7 +37,7 @@ panels:
     type: table
     label: Recent Events
     query: >
-      SELECT event_type, detail, created_at
+      SELECT event_type, detail::text, created_at
       FROM hello_events
       ORDER BY created_at DESC
       LIMIT 20

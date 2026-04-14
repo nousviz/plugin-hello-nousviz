@@ -38,6 +38,10 @@ navigation:
     href: /plugin/hello-nousviz/overview
     icon: plug
     position: sidebar
+  - label: Analytics
+    href: /plugin/hello-nousviz/analytics
+    icon: plug
+    position: sidebar
   - label: Alerts
     href: /plugin/hello-nousviz/alerts
     icon: plug
